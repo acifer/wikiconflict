@@ -3,12 +3,20 @@ import numpy as np
 import traceback
 
 class Wiki:
+    '''
+    MAIN CLASS TO store all revisions for a wiki along with editors and timestamp.
+    '''
     def __init__(self,id,title, revs, all_tokens=[]):
         self.id = id
         self.title = title
         self.revisions = revs
         self.add_all_token(all_tokens)
         
+#     def init_revisions(self, revisions):
+#           self.revisions = pd.Series( {revision["id"] : 
+#                                        Revision(revision["id"],revision["timestamp"], revision["editor"]) for revision in revisions} )
+ 
+           
     def add_all_token(self, all_tokens):
         for token in all_tokens:
             self.revisions.loc[token["o_rev_id"]].added.add(token["token_id"])
@@ -17,12 +25,11 @@ class Wiki:
             for out_revision in token["out"]:
                 self.revisions.loc[out_revision].removed.add(token["token_id"])
                 
-    def create_change(self, from_rev_id, to_rev_id, to_rev_content, vocab, epsilon_size):
+    def create_change(self, from_rev_id, to_rev_id, to_rev_content, epsilon_size):
         try:
             from_rev = self.revisions[from_rev_id]
             to_rev = self.revisions[to_rev_id]
             from_rev.deleted(to_rev)
-            from_rev.content["invocab"] = from_rev.content["str"].isin(vocab)
             to_rev.content = to_rev_content
             to_rev.inserted_continuous_pos()
             to_rev.inserted_neighbours()
@@ -31,7 +38,7 @@ class Wiki:
         except:
             print("exception occurred in calculating change object",traceback.format_exc())
             print("problem in ", to_rev_content.keys() )
-
+            
 
 class Revision:
     def __init__(self, id, timestamp,editor):
@@ -72,7 +79,6 @@ class Revision:
         self.change.fillna(-1, inplace=True)
         
     def append_neighbour_vec(self, to_rev, epsilon_size):
-        self.vocabs_pos = np.argwhere( self.content["invocab"].values)
         self.content_str_vec = self.content.str.values
         del self.content
         neighbour_df = self.change.apply(find_tokens, axis=1, args=(self,to_rev, epsilon_size))
@@ -83,8 +89,15 @@ class Revision:
 
 
 def find_tokens(change, revision, to_rev, epsilon_size):
-    left_neigh = revision.vocabs_pos[revision.vocabs_pos <= change["left_neigh"]][-epsilon_size:]
-    right_neigh = revision.vocabs_pos[revision.vocabs_pos >= change["right_neigh"]][:epsilon_size]
+    start_left = (int(change["left_neigh"]) - epsilon_size)
+    if start_left <0:
+        start_left = 0
+    left_neigh = slice( start_left, int(change["left_neigh"]) + 1)
+    
+    end_right = (int(change["right_neigh"]) + epsilon_size+1)
+    if end_right >= revision.content_str_vec.size:
+        end_right = revision.content_str_vec.size - 1
+    right_neigh = slice(int(change["right_neigh"]), end_right )
     if(change["ins_start_pos"]==-1):
         ins_tokens = []
     else:
@@ -97,4 +110,4 @@ def find_tokens(change, revision, to_rev, epsilon_size):
         del_tokens = revision.content_str_vec[del_slice]
     left_token = revision.content_str_vec[left_neigh]
     right_token = revision.content_str_vec[right_neigh]
-    return pd.Series([tuple(ins_tokens), tuple(del_tokens), tuple(left_neigh), tuple(right_neigh), tuple(left_token), tuple(right_token)])
+    return pd.Series([tuple(ins_tokens), tuple(del_tokens), left_neigh, right_neigh, tuple(left_token), tuple(right_token)])

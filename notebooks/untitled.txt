@@ -1,0 +1,93 @@
+import sys,os
+sys.path.append("../")
+
+import pandas as pd
+import numpy as np
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+from IPython.display import HTML
+from ipywidgets import interact, interactive, fixed, interact_manual
+import ipywidgets as widgets
+from scipy import stats
+from sklearn.cluster import DBSCAN
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import MultiLabelBinarizer
+
+
+from sklearn.metrics import adjusted_mutual_info_score
+from sklearn.metrics import pairwise_distances  
+from sklearn.metrics import adjusted_rand_score
+from sklearn.metrics import mutual_info_score
+from sklearn.metrics import normalized_mutual_info_score
+
+article_name = "John_Logie_Baird"
+change_object_dir =  "../data/change objects/"
+content_dir = "../data/content/"
+filename =  f"{article_name}_change.h5"
+change_object_file = os.path.join(change_object_dir, filename)
+filename = article_name + ".h5"
+filepath = os.path.join(content_dir, filename)
+
+with pd.HDFStore(filepath, 'r') as store:
+    token_string_df = store.get("all_tokens")
+
+
+token_string_df = token_string_df.set_index("token_id")["str"]
+token_string_df[-1] = "St@rt"
+token_string_df[-2] = "$nd"
+
+
+if os.path.exists(change_object_file):
+    with pd.HDFStore(change_object_file, 'r') as store:
+        change_object_dataframe = store.get("data")
+else:
+    print("file do not exist")
+change_object_dataframe.shape
+
+
+change_object_dataframe["ins_length"] = change_object_dataframe["ins_tokens"].str.len()
+change_object_dataframe["del_length"] = change_object_dataframe["del_tokens"].str.len()
+
+change_object_dataframe["del_string_tokens"] = change_object_dataframe["del_tokens"].apply(
+    lambda x:  tuple(token_string_df[np.array(x)].tolist()))
+
+change_object_dataframe["ins_string_tokens"] = change_object_dataframe["ins_tokens"].apply(
+    lambda x:  tuple(token_string_df[np.array(x)].tolist()))
+
+change_object_dataframe["left_context"] = change_object_dataframe["left_token"].apply(
+    lambda x:  tuple(token_string_df[np.array(x)].tolist())).str.join(" ")
+
+
+change_object_dataframe["right_context"] = change_object_dataframe["right_token"].apply(
+    lambda x:  tuple(token_string_df[np.array(x)].tolist())).str.join(" ")
+
+change_object_dataframe["bykau_cluster"] = pd.Series(-99,index=change_object_dataframe.index)
+
+
+ins_and_del = change_object_dataframe[(change_object_dataframe["ins_string_tokens"]!=()) & (change_object_dataframe["del_string_tokens"]!=())]
+
+bykau_change_object = reduced_ins_and_del.groupby("ins_string_tokens").filter(lambda x : x.index.get_level_values("editor").nunique()>=2)
+bykau_change_object = bykau_change_object.groupby("del_string_tokens").filter(lambda x : x.index.get_level_values("editor").nunique()>=2)
+
+r_threshold = 8
+cutoff_threshold = 0.75
+
+left_neighbours = bykau_change_object["left_context"].apply(lambda x: x.split(" ")[-r_threshold:])
+right_neighbours = bykau_change_object["right_context"].apply(lambda x: x.split(" ")[:r_threshold])
+neighbour_tokens = left_neighbours + right_neighbours
+
+# bykau_change_object["edit_tokens"] = edit_tokens.apply(lambda x: np.unique(x))
+neighbour_tokens_set = neighbour_tokens.apply(lambda x: np.unique(x))
+neighbour_vec = MultiLabelBinarizer().fit_transform(neighbour_tokens_set)
+
+db = DBSCAN(eps=cutoff_threshold, min_samples=5, metric='jaccard').fit(neighbour_vec)
+change_object_dataframe.loc[bykau_change_object.index,"bykau_cluster"]= db.labels_
+
+
+bykau_dir =  "../data/bykau_change_object/"
+filename =  f"{article_name}_change.h5"
+
+change_object_file = os.path.join(bykau_dir, filename)
+with pd.HDFStore(change_object_file, 'w') as store:
+    store.put("data", change_object_dataframe["bykau_cluster"],)

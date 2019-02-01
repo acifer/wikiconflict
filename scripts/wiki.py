@@ -79,7 +79,7 @@ class Revision:
         self.change.fillna(-1, inplace=True)
         
     def append_neighbour_vec(self, to_rev, epsilon_size):
-        self.content_str_vec = self.content.str.values
+        self.wiki_who_tokens = self.content.token_id.values
         del self.content
         neighbour_df = self.change.apply(find_tokens, axis=1, args=(self,to_rev, epsilon_size))
         neighbour_df.columns= ["ins_tokens", "del_tokens", "left_neigh", "right_neigh", "left_token", "right_token"]
@@ -95,8 +95,8 @@ def find_tokens(change, revision, to_rev, epsilon_size):
     left_neigh = slice( start_left, int(change["left_neigh"]) + 1)
     
     end_right = (int(change["right_neigh"]) + epsilon_size+1)
-    if end_right >= revision.content_str_vec.size:
-        end_right = revision.content_str_vec.size - 1
+    if end_right >= revision.wiki_who_tokens.size:
+        end_right = revision.wiki_who_tokens.size - 1
     right_neigh = slice(int(change["right_neigh"]), end_right )
     if(change["ins_start_pos"]==-1):
         ins_tokens = []
@@ -107,7 +107,7 @@ def find_tokens(change, revision, to_rev, epsilon_size):
         del_tokens = []
     else:
         del_slice = slice(int(change["del_start_pos"]), int(change["del_end_pos"]+1) )
-        del_tokens = revision.content_str_vec[del_slice]
-    left_token = revision.content_str_vec[left_neigh]
-    right_token = revision.content_str_vec[right_neigh]
+        del_tokens = revision.wiki_who_tokens[del_slice]
+    left_token = revision.wiki_who_tokens[left_neigh]
+    right_token = revision.wiki_who_tokens[right_neigh]
     return pd.Series([tuple(ins_tokens), tuple(del_tokens), left_neigh, right_neigh, tuple(left_token), tuple(right_token)])

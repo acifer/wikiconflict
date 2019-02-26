@@ -173,7 +173,7 @@ def cluster_and_evaluate(change_object_dataframe, vectors, vector_names, dbscan_
         if change_object_dataframe.shape[0] <= 21173:
             distances = pairwise_distances(vectors[cluster_by])
         else:
-            distances = radius_neighbors_graph( vectors[cluster_by], 2.6, mode="distance")
+            distances = radius_neighbors_graph( vectors[cluster_by], 4.02, mode="distance")
         for dbscan_param in dbscan_params:
             cluster_vec = cluster(distances, **dbscan_param)
             evaluation_df.loc[(cluster_by,dbscan_param["eps"]),:] = evaluate(
@@ -207,7 +207,7 @@ def main(article_name="John_Logie_Baird", content_dir="../data/content/",
                 "gini", "token_entropy", "position_entropy",
                "avg_position_entropy", "avg_token_entropy"]
     
-    dbscan_params = [{"eps": i, "min_samples":5} for i  in np.linspace(0.2, 2.5,num=100)]
+    dbscan_params = [{"eps": i, "min_samples":5} for i  in np.arange(0.25, 4.01, 0.25)]
     idx = pd.MultiIndex.from_product([vector_names, 
                                   [ param["eps"] for param in dbscan_params]],
                              names=['types', 'eps'])
@@ -222,7 +222,12 @@ def main(article_name="John_Logie_Baird", content_dir="../data/content/",
 
 
 if __name__ == "__main__":
-    list_of_articles=pd.read_csv("../conflicted_article.csv")["articles"].tolist()
+#     list_of_articles=pd.read_csv("../conflicted_article.csv")["articles"].tolist()
+#     for article in list_of_articles:
+#         print(f"processing article name {article}")
+#         main(article_name=article)
+        
+    list_of_articles=pd.read_csv("../conflicted_article-big.csv")["articles"].tolist()
     for article in list_of_articles:
         print(f"processing article name {article}")
         main(article_name=article)

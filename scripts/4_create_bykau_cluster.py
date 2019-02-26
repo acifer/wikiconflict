@@ -147,3 +147,10 @@ if __name__ == "__main__":
     for article in list_of_articles:
         print(f"processing article name {article}")
         main(article_name=article)
+    
+    big_list_of_articles = pd.read_csv("../conflicted_article-big.csv")["articles"].tolist()
+
+    for article in big_list_of_articles:
+        print(f"processing article name {article}")
+        main(article_name=article)
+        

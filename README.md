@@ -36,7 +36,11 @@ Clustering is divided into intrinsic and extrinsic clustering
 
 #### Intrinsic Evaluation
 
+For Intrinsic we propose various measure based on the assumption that vector consisting of outside 
+
 #### Extrinsic Evaluation
+
+We extriniscally evaluate our model against a golden data set prepared human annotator. We use entropy based measure of Homogenity
 
 ### Compare with Bykau. et. Al.
 

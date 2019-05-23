@@ -1,8 +1,24 @@
 # wikiconflict
 
-This repository is part of the analysis done for my master thesis. All the analysis steps are relased as IPython notebook.
+This repository is part of the analysis done for my master thesis.
+
+## Research Goal
+ Thesis aims to identify the tokens who are fine grained across all the revisions.
+IN order to achieve the research goal.
+
+1. We define and identifychange object
+2. We map change object to change vector of fixed dimension using pre-trained word vectors.
+3. We create group of change objects by clustering change vector.
+4. We evaluate groups of fine grained change object.
+5. We compare our algorithm of identifying change object group with bykau et al.
+
+All the analysis steps are relased as IPython notebook.
 
 Following steps needed to be performed for processing of the data.
+
+
+## Prepearing the code.
+First clone this repository in a folder
 
 ## Download the Pre-Trained word vectors
 

@@ -18,16 +18,16 @@ Following steps needed to be performed for processing of the data.
 
 
 ## Prepearing the code.
-First clone this repository in a folder
+After you clone this repository in a folder follow the following step to rerun the analysis
 
-## Download the Pre-Trained word vectors
+### 1. Download the Pre-Trained word vectors
 
 Use fast text [word vectors](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md) from [https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec]
 
-## Creating required directory for storing the intermediate and final outcome of analysis.
+### 2. Creating required directory for storing the intermediate and final outcome of analysis.
 
 Inside wikiconflict folder create the root folder /data for storing all the results of analysis.
-#### Inside /data create various subfolders. Each of these subfolders will store data at various stage of processing. 
+Inside /data create various subfolders. Each of these subfolders will store data at various stage of processing. 
 1. /content
 2. /change objects
 3. /change_vector

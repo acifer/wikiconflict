@@ -3,14 +3,15 @@
 This repository is part of the analysis done for my master thesis.
 
 ## Research Goal
- Thesis aims to identify the tokens who are fine grained across all the revisions.
-IN order to achieve the research goal.
+ Thesis aims to identify the grpup of edited tokens in the revisin history of an article who are fine grained in there respective revisions.
+ 
+In order to achieve our reserch goal we break it into following steps.
 
-1. We define and identifychange object
-2. We map change object to change vector of fixed dimension using pre-trained word vectors.
-3. We create group of change objects by clustering change vector.
-4. We evaluate groups of fine grained change object.
-5. We compare our algorithm of identifying change object group with bykau et al.
+1. We define and identify fine grained edit tokens, we call it Change Objects.
+2. We transform Change Objects to Change Vector of fixed dimension using pre-trained word vectors.
+3. We create groups of Change Objects by clustering change vector.
+4. We evaluate groups of fine grained Change Objects.
+5. We compare our algorithm of identifying  group of Change Objects with algorithm proposed by (bykau et al).
 
 All the analysis steps are relased as IPython notebook.
 

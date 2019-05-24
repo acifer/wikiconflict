@@ -11,7 +11,7 @@ In order to achieve our reserch goal we break it into following steps.
 2. We transform Change Objects to Change Vector of fixed dimension using pre-trained word vectors.
 3. We create groups of Change Objects by clustering change vector.
 4. We evaluate groups of fine grained Change Objects.
-5. We compare our algorithm of identifying  group of Change Objects with algorithm proposed by (bykau et al).
+5. We compare our algorithm of identifying  group of Change Objects with algorithm proposed by [bykau et al].
 
 All the analysis steps are relased as IPython notebook.
 
@@ -19,16 +19,16 @@ Following steps needed to be performed for processing of the data.
 
 
 ## Prepearing the code.
-After you clone this repository in a folder follow the following step to rerun the analysis
+First clone or download this repository in a folder.
+ follow the following step to rerun the analysis
 
 ### 1. Download the Pre-Trained word vectors
-
-Use fast text [word vectors](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md) from [https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec]
+After cloning this repository get the word vectors from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). Download [English Word Vector] [https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec] *Warning: word vector is a huge file*. Create a directory /wordvectors in the root directory where the code is cloned. Store the word vector in this directory to be used in next steps.
 
 ### 2. Creating required directory for storing the intermediate and final outcome of analysis.
 
-Inside wikiconflict folder create the root folder /data for storing all the results of analysis.
-Inside /data create various subfolders. Each of these subfolders will store data at various stage of processing. 
+Inside wikiconflict directory create the directory /data for storing all the results of analysis.
+Inside /data create various subdirectories. Each of these subdirectories will store data at various stage of processing. 
 1. /content
 2. /change objects
 3. /change_vector
@@ -37,10 +37,11 @@ Inside /data create various subfolders. Each of these subfolders will store data
 
 ## Steps of analysis
 
-### Downalod the Article
-Use the notebook 1_download_rev_content.ipynb to download all the articles you wish to analyse.
+### 1.Downalod the Article
+We use tokens from [WikiWho API]() to identify edited tokens, so first step requirs to downlaod all the content of the article. 
+Tokenised content of the article can be downloaded using the [notebook](./notebooks/1_download_rev_content.ipynb) which is saved in the /content directory for next steps of analysis.
 
-### Ceate Change Object
+### 2. Ceate Change Object
 
 Create change object with gaps of inserted and deleted tokens using the notebook 2_create_change_object-v2.ipynb
 

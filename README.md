@@ -59,7 +59,7 @@ Change Vectors saved in data/change_vector corresponnding to different values of
  
  Being a density based clustering algorithm DBSCAN identifies clusters of unequal size. We first analyse the cluster length distribution using various descriptive statistics. We also identify Gini co effecient of cluster length distribution.
 
-For further investaigating Chnage object groups Intrinsicially, we propose various measure based on the assumption that cluster of vector created by averaging word tokens from immediately before and after the Change Object should be able to have similar word tokens and come from similar relative position in the article.  In order to identify 
+For further investaigating Chnage object groups Intrinsicially, we propose various measure based on the assumption that cluster of vector created by averaging word tokens from immediately before and after the Change Object should be able to have similar word tokens and come from similar relative position in the article.  In order to quantify the different kind of words in Cluster we define token entropy for the edited token in gap of change object. Similarly to qunatify the relative position of Change Objects in a cluster we define the reltive position entropy. All of the intrinsic evaluation analysis is done in the notebook [4_1_clustering-dbscan-intrinsic-evaluation-all] (./notebooks/4_1_clustering-dbscan-intrinsic-evaluation-all). 
 
 #### Extrinsic Evaluation
 

@@ -56,13 +56,14 @@ Change Vectors saved in data/change_vector corresponnding to different values of
 
 
 #### Intrinsic Evaluation
+ 
+ Being a density based clustering algorithm DBSCAN identifies clusters of unequal size. We first analyse the cluster length distribution using various descriptive statistics. We also identify Gini co effecient of cluster length distribution.
 
-
-For Intrinsic we propose various measure based on the assumption that vector consisting of outside 
+For further investaigating Chnage object groups Intrinsicially, we propose various measure based on the assumption that cluster of vector created by averaging word tokens from immediately before and after the Change Object should be able to have similar word tokens and come from similar relative position in the article.  In order to identify 
 
 #### Extrinsic Evaluation
 
-We extriniscally evaluate our model against a golden data set prepared human annotator. We use entropy based measure of Homogenity
+We extriniscally evaluate our model against a golden data set prepared human annotator. We use entropy based measure of Homogenity,Completness and V-measure. 
 
 #### Compare with Bykau. et. Al.
 

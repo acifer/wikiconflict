@@ -43,13 +43,15 @@ Tokenised content of the article can be downloaded using the [notebook](./notebo
 
 ### 2. Ceate Change Object
 
-From the edited tokens downlaoded in the data/content directory we create change vector using the using the notebook [2_create_change_object-v2.ipynb](./notebooks/2_create_change_object-v2.ipynb). This notebook saves the identified change object in the directory   
+From the edited tokens downlaoded in the data/content directory we create change vector using the using the notebook [2_create_change_object-v2.ipynb](./notebooks/2_create_change_object-v2.ipynb). This notebook saves the identified change object in the directory   data/change objects
 
 ### Create Change Vector
 
-Change Vectors created from pre-trained word vectors are one of the important paramter of the model. Use the notbook in 3_create_change_vector-v3.ipynb to create different change vectors corresponding to different values of context_length. All of these change vectors are saved in /change_vector folder. These change vectors will be used to create groups and analyse them.
+Next step is to transform Change Objects stored in /data/change objects into 600 dimensional Change Vector using pre trained word vectors downloaded from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). 
+ The notebook  [3_create_change_vector-v3.ipynb](./notebooks/[3_create_change_vector-v3.ipynb]) creates different change vectors corresponding to different values of parameter, *context_length*. All of these change vectors are saved in data/change_vector directory. Change vector is created using neighbouring tokens of change vectors and *context_length* equals to number of tokens in left and right used to create change vectors. Corresponsing to different values of *context_length* we get different Change Vectors for same Change Object.
 
 ### Cluster and Evaluate
+These Change Vectors saved in data/change_vector us used create DBSCAN cluster and is evaluated.
 Clustering is divided into intrinsic and extrinsic clustering 
 
 #### Intrinsic Evaluation

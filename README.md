@@ -39,11 +39,11 @@ Inside /data create various subdirectories. Each of these subdirectories will st
 
 ### 1.Downalod the Article
 We use tokens from [WikiWho API]() to identify edited tokens, so first step requirs to downlaod all the content of the article. 
-Tokenised content of the article can be downloaded using the [notebook](./notebooks/1_download_rev_content.ipynb) which is saved in the /content directory for next steps of analysis.
+Tokenised content of the article can be downloaded using the [notebook](./notebooks/1_download_rev_content.ipynb) which is saved in the data/content directory for next steps of analysis.
 
 ### 2. Ceate Change Object
 
-Create change object with gaps of inserted and deleted tokens using the notebook 2_create_change_object-v2.ipynb
+From the edited tokens downlaoded in the data/content directory we create change vector using the using the notebook [2_create_change_object-v2.ipynb](./notebooks/2_create_change_object-v2.ipynb). This notebook saves the identified change object in the directory   
 
 ### Create Change Vector
 

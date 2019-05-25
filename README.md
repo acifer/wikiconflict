@@ -3,7 +3,7 @@
 This repository is part of the analysis done for my master thesis.
 
 ## Research Goal
- Thesis aims to identify the grpup of edited tokens in the revisin history of an article who are fine grained in there respective revisions.
+ Thesis aims to identify the group of edited tokens in the revisin history of an article who are fine grained in there respective revisions.
  
 In order to achieve our reserch goal we break it into following steps.
 

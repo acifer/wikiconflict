@@ -61,9 +61,6 @@ Change Vectors saved in data/change_vector corresponnding to different values of
 
 For further investaigating Chnage object groups Intrinsicially, we propose various measure based on the assumption that cluster of vector created by averaging word tokens from immediately before and after the Change Object should be able to have similar word tokens and come from similar relative position in the article.  In order to quantify the different kind of words in Cluster we define token entropy for the edited token in gap of change object. Similarly to qunatify the relative position of Change Objects in a cluster we define the reltive position entropy. All of the intrinsic evaluation analysis is done in the notebook [4_1_clustering-dbscan-intrinsic-evaluation-all.ipynb](./notebooks/4_1_clustering-dbscan-intrinsic-evaluation-all.ipynb). 
 
-#### Extrinsic Evaluation
-
-We extriniscally evaluate our model against a golden data set prepared human annotator. We use entropy based measure of Homogenity,Completness and V-measure. Extrinsic evaluation is done in the [4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb](./notebooks/4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb)
 
 #### Compare with Bykau. et. Al.
 
@@ -71,8 +68,13 @@ First we reimplement paper from Bykau. et. al. Analysis of optimisation and clus
 ####  Agreement of our cluster with Bykau. et. Al.
 Using we create clusters for all 16 articles in [small article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article.csv) and [big article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article-big.csv)
 
+We find [Fowlkes–Mallows index](https://en.wikipedia.org/wiki/Fowlkes–Mallows_index) using [5_3_fowlkes_intercluster](./notebooks/5_3_fowlkes_intercluster.ipynb)
+
+
+#### Extrinsic Evaluation
+
+We extriniscally evaluate our model against a golden data set prepared human annotator. We use entropy based measure of Homogenity,Completness and V-measure. Extrinsic evaluation is done in the [4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb](./notebooks/4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb) for the article [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird).
+
 #### Extrinsic evaluation against Bykau. et. Al.
-
-
-
-
+ 
+ We further evaluate Bykau. et. Al. approach for annotations of  [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird). To give a fair comparison we implement Bykau. et. al. with and without optimisation. [5_2_1_compare-with-bykau_with_optimizations-v-measure.ipynb](./notebooks//5_2_1_compare-with-bykau_with_optimizations-v-measure.ipynb) evaluates Bykau. et. al. with optimisation whereas [5_2_2_compare-with-bykau-without_optimizations-vmeasure](./notebooks/5_2_2_compare-with-bykau-without_optimizations-vmeasure.ipynb).

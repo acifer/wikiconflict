@@ -34,6 +34,7 @@ Inside `/data`, create various subdirectories. Each of these subdirectories will
 3. `/change_vector`
 4. `/bykau_change_object`
 5. `/annotation`
+6.`/pre_evaluation`
 
 ## Steps of analysis:
 As the analysis is done on history of edit of a single article. All the steps need name of the article to conduct the analysis.
@@ -54,6 +55,7 @@ The notebook [3_create_change_vector-v3.ipynb](./notebooks/[3_create_change_vect
 ### Cluster and Evaluate
 Change Vectors saved in `/data/change_vector` corresponnding to different values of *context_length* is used to create DBSCAN cluster. These clusters are first evaluated using both intrinsic and extrinsic mechanism. We compare our cluster to one created by re-implementation of Bykau. et. al. DBSCAN has two parameters eps and min_samples which when combined with context_length gives us three paramters of our model against which we evaluate our model.
 
+ We use 16 articles in [small article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article.csv) and [big article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article-big.csv) for intrinsic evaluation and for comparison with Bykau. et. al.
 
 
 #### Intrinsic Evaluation
@@ -62,12 +64,14 @@ Being a density based clustering algorithm DBSCAN identifies clusters of unequal
 
 For further investigating Change Object groups intrinsicially, we propose various measure based on the assumption that cluster of vector created by averaging word tokens from immediately before and after the Change Object should be able to have similar word tokens and come from similar relative position in the article.  In order to quantify different kind of words in Cluster, we define token entropy for the edited token in gap of change object. Similarly to quantify the relative position of Change Objects in a cluster we define the relative position entropy. All of the intrinsic evaluation analysis is done in the notebook [4_1_clustering-dbscan-intrinsic-evaluation-all.ipynb](./notebooks/4_1_clustering-dbscan-intrinsic-evaluation-all.ipynb). 
 
+To run intrinsic evaluation for all 16 articles we use the script in [3_dbscan_intrinsic.py](./scripts/3_dbscan_intrinsic.py). Results of intrinsic evaluation is saved in `/pre_evaluation` directory.
+
 
 #### Compare with Bykau. et. Al.
 
 First we reimplement paper from Bykau. et. al. Analysis of optimisation and clustering is done in  [5_1_reproduce_fine_grained](./notebooks/5_1_reproduce_fine_grained.ipynb). We run this reimplemented algorithm on all the change objects saved in `/change_object` directory and save the change object groups created by Bykau. et. Al. in /bykau_change_object.
 ####  Agreement of our cluster with Bykau. et. Al.
-Using , we create clusters for all 16 articles in [small article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article.csv) and [big article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article-big.csv)
+Using ,
 
 We find [Fowlkes–Mallows index](https://en.wikipedia.org/wiki/Fowlkes–Mallows_index) using [5_3_fowlkes_intercluster](./notebooks/5_3_fowlkes_intercluster.ipynb)
 

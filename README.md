@@ -36,9 +36,10 @@ Inside /data create various subdirectories. Each of these subdirectories will st
 5. /annotation
 
 ## Steps of analysis:
+As the analysis is done on history of edit of a single article. All the steps need name of the article to conduct the analysis.
 
 ### 1.Download the Article
-We use tokens from [WikiWho API]() to identify edited tokens, so first step requires to download all the contents of the target article. 
+We use tokens from [WikiWho API](https://api.wikiwho.net/en/api/v1.0.0-beta/#/) to identify edited tokens, so first step requires to download all the contents of the target article. 
 Tokenised content of the article can be downloaded using the [notebook](./notebooks/1_download_rev_content.ipynb) which is saved in the data/content directory for next steps of analysis.
 
 ### 2. Ceate Change Object

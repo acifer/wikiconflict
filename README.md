@@ -27,8 +27,8 @@ After cloning this repository, get the word vectors from [fast text](https://git
 
 ### 2. Create required directory for saving intermediate and final outcome of analysis.
 
-Inside wikiconflict directory create the directory /data for storing all the results of analysis.
-Inside /data create various subdirectories. Each of these subdirectories will store data at various stage of processing. 
+Inside wikiconflict directory, create the directory `/data` for storing all the results of analysis.
+Inside /data, create various subdirectories. Each of these subdirectories will store data at various stages of processing. 
 1. /content
 2. /change objects
 3. /change_vector
@@ -44,7 +44,7 @@ Tokenised content of the article can be downloaded using the [notebook](./notebo
 
 ### 2. Ceate Change Object
 
-From the edited tokens downloaded in the data/content directory, we create change vector using the notebook [2_create_change_object-v2.ipynb](./notebooks/2_create_change_object-v2.ipynb). This notebook saves the identified change object in the directory   data/change objects
+From the edited tokens downloaded in the data/content directory, we create change vector using the notebook [2_create_change_object-v2.ipynb](./notebooks/2_create_change_object-v2.ipynb). This notebook saves the identified change object in the directory   /data/change objects
 
 ### Create Change Vector
 

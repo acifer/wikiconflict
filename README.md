@@ -28,44 +28,44 @@ After cloning this repository, get the word vectors from [fast text](https://git
 ### 2. Create required directory for saving intermediate and final outcome of analysis.
 
 Inside wikiconflict directory, create the directory `/data` for storing all the results of analysis.
-Inside /data, create various subdirectories. Each of these subdirectories will store data at various stages of processing. 
-1. /content
-2. /change objects
-3. /change_vector
-4. /bykau_change_object
-5. /annotation
+Inside `/data`, create various subdirectories. Each of these subdirectories will store data at various stages of processing. 
+1. `/content`
+2. `/change objects`
+3. `/change_vector`
+4. `/bykau_change_object`
+5. `/annotation`
 
 ## Steps of analysis:
 As the analysis is done on history of edit of a single article. All the steps need name of the article to conduct the analysis.
 
 ### 1.Download the Article
 We use tokens from [WikiWho API](https://api.wikiwho.net/en/api/v1.0.0-beta/#/) to identify edited tokens, so first step requires to download all the contents of the target article. 
-Tokenised content of the article can be downloaded using the [notebook](./notebooks/1_download_rev_content.ipynb) which is saved in the data/content directory for next steps of analysis.
+Tokenised content of the article can be downloaded using the [notebook](./notebooks/1_download_rev_content.ipynb) which is saved in the `/data/content` directory for next steps of analysis.
 
 ### 2. Ceate Change Object
 
-From the edited tokens downloaded in the data/content directory, we create change vector using the notebook [2_create_change_object-v2.ipynb](./notebooks/2_create_change_object-v2.ipynb). This notebook saves the identified change object in the directory   /data/change objects
+From the edited tokens downloaded in the `data/content` directory, we create change vector using the notebook [2_create_change_object-v2.ipynb](./notebooks/2_create_change_object-v2.ipynb). This notebook saves the identified change object in the directory `/data/change` objects
 
 ### Create Change Vector
 
-Next step is to transform Change Objects stored in /data/change objects into 600 dimensional Change Vector using pre trained word vectors downloaded from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). 
-The notebook  [3_create_change_vector-v3.ipynb](./notebooks/[3_create_change_vector-v3.ipynb]) creates different change vectors corresponding to different values of parameter, *context_length*. All of these change vectors are saved in data/change_vector directory. Change vector is created using neighbouring tokens of change vectors and *context_length* equals to number of tokens in left and right used to create change vectors. Corresponding to different values of *context_length* we get different Change Vectors for same Change Object.
+Next step is to transform Change Objects stored in `/data/change` objects into 600 dimensional Change Vector using pre trained word vectors downloaded from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). 
+The notebook [3_create_change_vector-v3.ipynb](./notebooks/[3_create_change_vector-v3.ipynb]) creates different change vectors corresponding to different values of parameter, *context_length*. All of these change vectors are saved in /`data/change_vector` directory. Change vector is created using neighbouring tokens of change vectors and *context_length* equals to number of tokens in left and right used to create change vectors. Corresponding to different values of *context_length* we get different Change Vectors for same Change Object.
 
 ### Cluster and Evaluate
-Change Vectors saved in data/change_vector corresponnding to different values of *context_length* us used create DBSCAN cluster. These clusters are first evaluated using both intrinsic and extrinsic mechanism. Finally we compare our cluster to one created by re-implementation of Bykau. et. al. DBSCAN has two parameters eps and min_samples which when combined with context_length gives us three paramters of our model against which we evaluate our model.
+Change Vectors saved in `/data/change_vector` corresponnding to different values of *context_length* is used to create DBSCAN cluster. These clusters are first evaluated using both intrinsic and extrinsic mechanism. We compare our cluster to one created by re-implementation of Bykau. et. al. DBSCAN has two parameters eps and min_samples which when combined with context_length gives us three paramters of our model against which we evaluate our model.
 
 
 
 #### Intrinsic Evaluation
  
- Being a density based clustering algorithm DBSCAN identifies clusters of unequal size. We first analyse the cluster length distribution using various descriptive statistics. We also identify Gini co effecient of cluster length distribution.
+Being a density based clustering algorithm DBSCAN identifies clusters of unequal size. We first analyse the cluster length distribution using various descriptive statistics. We identify Gini co-effecient of cluster length distribution.
 
-For further investaigating Chnage object groups Intrinsicially, we propose various measure based on the assumption that cluster of vector created by averaging word tokens from immediately before and after the Change Object should be able to have similar word tokens and come from similar relative position in the article.  In order to quantify the different kind of words in Cluster we define token entropy for the edited token in gap of change object. Similarly to qunatify the relative position of Change Objects in a cluster we define the reltive position entropy. All of the intrinsic evaluation analysis is done in the notebook [4_1_clustering-dbscan-intrinsic-evaluation-all.ipynb](./notebooks/4_1_clustering-dbscan-intrinsic-evaluation-all.ipynb). 
+For further investigating Change Object groups intrinsicially, we propose various measure based on the assumption that cluster of vector created by averaging word tokens from immediately before and after the Change Object should be able to have similar word tokens and come from similar relative position in the article.  In order to quantify different kind of words in Cluster, we define token entropy for the edited token in gap of change object. Similarly to quantify the relative position of Change Objects in a cluster we define the relative position entropy. All of the intrinsic evaluation analysis is done in the notebook [4_1_clustering-dbscan-intrinsic-evaluation-all.ipynb](./notebooks/4_1_clustering-dbscan-intrinsic-evaluation-all.ipynb). 
 
 
 #### Compare with Bykau. et. Al.
 
-First we reimplement paper from Bykau. et. al. Analysis of optimisation and clustering is done in  [5_1_reproduce_fine_grained](./notebooks/5_1_reproduce_fine_grained.ipynb). We run this reimplemented algorithm on all the chage objects saved in /change_object folder and save the change object groups created by Bykau. et. Al. in /bykau_change_object.
+First we reimplement paper from Bykau. et. al. Analysis of optimisation and clustering is done in  [5_1_reproduce_fine_grained](./notebooks/5_1_reproduce_fine_grained.ipynb). We run this reimplemented algorithm on all the change objects saved in `/change_object` directory and save the change object groups created by Bykau. et. Al. in /bykau_change_object.
 ####  Agreement of our cluster with Bykau. et. Al.
 Using we create clusters for all 16 articles in [small article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article.csv) and [big article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article-big.csv)
 

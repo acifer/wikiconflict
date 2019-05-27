@@ -67,14 +67,14 @@ For further investigating Change Object groups intrinsicially, we propose variou
 
 First we reimplement paper from Bykau. et. al. Analysis of optimisation and clustering is done in  [5_1_reproduce_fine_grained](./notebooks/5_1_reproduce_fine_grained.ipynb). We run this reimplemented algorithm on all the change objects saved in `/change_object` directory and save the change object groups created by Bykau. et. Al. in /bykau_change_object.
 ####  Agreement of our cluster with Bykau. et. Al.
-Using we create clusters for all 16 articles in [small article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article.csv) and [big article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article-big.csv)
+Using , we create clusters for all 16 articles in [small article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article.csv) and [big article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article-big.csv)
 
 We find [Fowlkes–Mallows index](https://en.wikipedia.org/wiki/Fowlkes–Mallows_index) using [5_3_fowlkes_intercluster](./notebooks/5_3_fowlkes_intercluster.ipynb)
 
 
 #### Extrinsic Evaluation
 
-We extriniscally evaluate our model against a golden data set prepared human annotator. We use entropy based measure of Homogenity,Completness and V-measure. Extrinsic evaluation is done in the [4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb](./notebooks/4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb) for the article [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird).
+We evaluate our model extriniscally against a golden data set prepared by human annotators. We use entropy based measure of Homogenity,Completness and V-measure. Extrinsic evaluation is done in the [4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb](./notebooks/4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb) for the article [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird).
 
 #### Extrinsic evaluation against Bykau. et. Al.
  

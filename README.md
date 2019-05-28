@@ -21,7 +21,9 @@ All the analysis steps are released as IPython notebook.
 ### 1. Clone this repository in a folder in your machine.
 
 ### 2. Download the Pre-Trained word vectors
-After cloning this repository, get the word vectors from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). Download [English Word Vector](https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec) *note: word vector is a huge file*. Create a directory `/wordvectors` in the root directory where the code is cloned. Store the word vector in this directory to be used in next steps.
+After cloning this repository, get the word vectors from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). Download [English Word Vector](https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec). Create a directory `/wordvectors` in the root directory where the code is cloned. Save the word vector in this directory to be used in next steps.
+
+#### Note: word vector is a huge file. 
 
 ### 3. Create required directory for saving intermediate and final outcome of analysis.
 
@@ -37,20 +39,20 @@ Inside `/data`, create various subdirectories. Each of these subdirectories will
 -----
 
 ## Steps of analysis:
-As the analysis is done on history of edit of a single article. All the steps of the analysis is done on a target wikipedia article. Follow the following steps to re-run the analysis:
+As the analysis is done on history of edit of a single article, all the steps of the analysis are performed on a target Wikipedia article. Follow the steps listed below to re-run the analysis:
 
-### 1.Download the Article
-We use tokens from [WikiWho API](https://api.wikiwho.net/en/api/v1.0.0-beta/#/) to identify edited tokens, so first step requires to download all the contents of the target article. 
+### 1. Download article
+We use tokens from [WikiWho API](https://api.wikiwho.net/en/api/v1.0.0-beta/#/) to identify edited tokens. Therefore, the first step requires to download all the contents of the target article. 
 Tokenised content of the article can be downloaded using the [notebook](./notebooks/1_download_rev_content.ipynb) which is saved in the `/data/content` directory for next steps of analysis.
 
-### 2. Ceate Change Object
+### 2. Create Change Object
 
-From the edited tokens downloaded in the `data/content` directory, we create change vector using the notebook [2_create_change_object-v2.ipynb](./notebooks/2_create_change_object-v2.ipynb). This notebook saves the identified change object in the directory `/data/change` objects
+From the edited tokens downloaded in the `data/content` directory, we create change vector using the notebook [2_create_change_object-v2.ipynb](./notebooks/2_create_change_object-v2.ipynb). This notebook saves the identified change object in the directory `/data/change` objects.
 
 ### 3. Create Change Vector
 
-Next step is to transform Change Objects stored in `/data/change` objects into 600 dimensional Change Vector using pre trained word vectors downloaded from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). 
-The notebook [3_create_change_vector-v3.ipynb](./notebooks/[3_create_change_vector-v3.ipynb]) creates different change vectors corresponding to different values of parameter, *context_length*. All of these change vectors are saved in /`data/change_vector` directory. Change vector is created from neighbouring tokens of change vectors. Neighbouring tokens are tokens in left and right of gap of change object. No of neoghbouring tokens taken from left and right of neighbour is called *context_length*. Using pre trained word vectors already downlaoded in `wordvectors`, we average vectors corresponding to  words in neighbouring context. As different values of *context_length* gives differnt neighbouring tokens, we get different Change Vectors for same Change Object for different value of *context_length*.
+Next step is to transform Change Objects stored in `/data/change` objects into 600 dimensional Change Vector using pre - trained word vectors downloaded from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). 
+The notebook [3_create_change_vector-v3.ipynb](./notebooks/[3_create_change_vector-v3.ipynb]) creates different change vectors corresponding to different values of parameter, *context_length*. All of these change vectors are saved in /`data/change_vector` directory. Change vector is created from neighbouring tokens of change vectors. Neighbouring tokens are tokens in left and right of the gap of change object. Number of neighbouring tokens taken from left and right of change object gap is called *context_length*. Using pre - trained word vectors already downlaoded in `wordvectors`, we average vectors corresponding to  words in neighbouring context. As different values of *context_length* gives differnt neighbouring tokens, we get different Change Vectors for same Change Object for different value of *context_length*.
 
 ### 4. Cluster and Evaluate
 Change Vectors saved in `/data/change_vector` corresponnding to different values of *context_length* is used to create DBSCAN clusters. These clusters are first evaluated using both intrinsic and extrinsic mechanism. We compare our cluster to one created by re-implementation of [Bykau. et. Al.](https://velgias.github.io/docs/BykauKSV15.pdf). DBSCAN has two parameters *eps* and *min_samples* which when combined with *context_length* gives us three paramters of our model against which we evaluate and analyse performance of our model.

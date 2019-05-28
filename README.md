@@ -17,15 +17,18 @@ All the analysis steps are released as IPython notebook.
 
 Following steps needed to be performed for processing of the data.
 
+-----
+-----
+
 
 ## Preparing the code.
 First clone or download this repository in a folder.
 Follow the following steps to re-run the analysis:
 
-### 1. Download the Pre-Trained word vectors
+### * Download the Pre-Trained word vectors
 After cloning this repository, get the word vectors from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). Download [English Word Vector](https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec) *note: word vector is a huge file*. Create a directory `/wordvectors` in the root directory where the code is cloned. Store the word vector in this directory to be used in next steps.
 
-### 2. Create required directory for saving intermediate and final outcome of analysis.
+### * Create required directory for saving intermediate and final outcome of analysis.
 
 Inside wikiconflict directory, create the directory `/data` for storing all the results of analysis.
 Inside `/data`, create various subdirectories. Each of these subdirectories will store data at various stages of processing. 
@@ -35,6 +38,8 @@ Inside `/data`, create various subdirectories. Each of these subdirectories will
 4. `/bykau_change_object`
 5. `/annotation`
 6.`/pre_evaluation`
+
+-----
 
 ## Steps of analysis:
 As the analysis is done on history of edit of a single article. All the steps of the analysis is done on a target wikipedia article.
@@ -50,7 +55,7 @@ From the edited tokens downloaded in the `data/content` directory, we create cha
 ### 3. Create Change Vector
 
 Next step is to transform Change Objects stored in `/data/change` objects into 600 dimensional Change Vector using pre trained word vectors downloaded from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). 
-The notebook [3_create_change_vector-v3.ipynb](./notebooks/[3_create_change_vector-v3.ipynb]) creates different change vectors corresponding to different values of parameter, *context_length*. All of these change vectors are saved in /`data/change_vector` directory. Change vector is created using neighbouring tokens of change vectors and *context_length* equals to number of tokens in left and right used to create change vectors. Corresponding to different values of *context_length* we get different Change Vectors for same Change Object.
+The notebook [3_create_change_vector-v3.ipynb](./notebooks/[3_create_change_vector-v3.ipynb]) creates different change vectors corresponding to different values of parameter, *context_length*. All of these change vectors are saved in /`data/change_vector` directory. Change vector is created using averaging of vectors corresponding to neighbouring tokens of change vectors and *context_length* equals to number of tokens in left and right used to create change vectors. Corresponding to different values of *context_length* we get different Change Vectors for same Change Object.
 
 ### 4. Cluster and Evaluate
 Change Vectors saved in `/data/change_vector` corresponnding to different values of *context_length* is used to create DBSCAN cluster. These clusters are first evaluated using both intrinsic and extrinsic mechanism. We compare our cluster to one created by re-implementation of Bykau. et. al. DBSCAN has two parameters eps and min_samples which when combined with context_length gives us three paramters of our model against which we evaluate our model.
@@ -67,11 +72,10 @@ For further investigating Change Object groups intrinsicially, we propose variou
 To run intrinsic evaluation for all 16 articles we use the script in [3_dbscan_intrinsic.py](./scripts/3_dbscan_intrinsic.py). Results of intrinsic evaluation is saved in `/pre_evaluation` directory. We create visualisation of these results using [notebook](./notebooks/6_2_Plots (Response Variables).ipynb).
 
 
-#### Compare with Bykau. et. Al.
+#### Compare with [Bykau. et. Al.](https://velgias.github.io/docs/BykauKSV15.pdf)
 
-First we reimplement paper from Bykau. et. al. Analysis of optimisation and clustering as suggested in [paper]() is done in  [5_1_reproduce_fine_grained](./notebooks/5_1_reproduce_fine_grained.ipynb). We run this reimplemented algorithm on all the change objects saved in `/change_object` directory and save the change object groups created by Bykau. et. Al. in `/bykau_change_object`.
+First we reimplement paper from Bykau. et. al. Analysis of optimisation and clustering as suggested in [Bykau. et. Al.](https://velgias.github.io/docs/BykauKSV15.pdf) is done in  [5_1_reproduce_fine_grained](./notebooks/5_1_reproduce_fine_grained.ipynb). We run this reimplemented algorithm on all the change objects saved in `/change_object` directory and save the change object groups created by Bykau. et. Al. in `/bykau_change_object`.
 ####  Agreement of our cluster with Bykau. et. Al.
-Using ,
 
 We find [Fowlkes–Mallows index](https://en.wikipedia.org/wiki/Fowlkes–Mallows_index) using [5_3_fowlkes_intercluster](./notebooks/5_3_fowlkes_intercluster.ipynb)
 
@@ -80,6 +84,6 @@ We find [Fowlkes–Mallows index](https://en.wikipedia.org/wiki/Fowlkes–Mallow
 
 We evaluate our model extriniscally against a golden data set prepared by human annotators. We use entropy based measure of Homogenity,Completness and V-measure. Extrinsic evaluation is done in the [4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb](./notebooks/4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb) for the article [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird). Evaluation is done with respect to three parameters of the model *Context_length*, *eps* and *min_sample*. 
 
-#### Extrinsic evaluation against Bykau. et. Al.
+#### Extrinsic evaluation against [Bykau. et. Al.](https://velgias.github.io/docs/BykauKSV15.pdf)
  
- We further evaluate Bykau. et. Al. approach for annotations of  [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird). To give a fair comparison, we implement Bykau. et. al. with and without optimisation. [5_2_1_compare-with-bykau_with_optimizations-v-measure.ipynb](./notebooks//5_2_1_compare-with-bykau_with_optimizations-v-measure.ipynb) evaluates Bykau. et. al. with optimisation whereas [5_2_2_compare-with-bykau-without_optimizations-vmeasure](./notebooks/5_2_2_compare-with-bykau-without_optimizations-vmeasure.ipynb).
+ We further evaluate Bykau. et. Al. approach for annotations of  [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird). To give a fair comparison, we implement [Bykau. et. al.](https://velgias.github.io/docs/BykauKSV15.pdf) with and without optimisation. [5_2_1_compare-with-bykau_with_optimizations-v-measure.ipynb](./notebooks//5_2_1_compare-with-bykau_with_optimizations-v-measure.ipynb) evaluates Bykau. et. al. with optimisation whereas [5_2_2_compare-with-bykau-without_optimizations-vmeasure](./notebooks/5_2_2_compare-with-bykau-without_optimizations-vmeasure.ipynb).

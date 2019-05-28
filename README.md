@@ -23,7 +23,7 @@ First clone or download this repository in a folder.
 Follow the following steps to re-run the analysis:
 
 ### 1. Download the Pre-Trained word vectors
-After cloning this repository, get the word vectors from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). Download [English Word Vector] [https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec] *Warning: word vector is a huge file*. Create a directory /wordvectors in the root directory where the code is cloned. Store the word vector in this directory to be used in next steps.
+After cloning this repository, get the word vectors from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). Download [English Word Vector](https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec) *note: word vector is a huge file*. Create a directory /wordvectors in the root directory where the code is cloned. Store the word vector in this directory to be used in next steps.
 
 ### 2. Create required directory for saving intermediate and final outcome of analysis.
 
@@ -37,7 +37,7 @@ Inside `/data`, create various subdirectories. Each of these subdirectories will
 6.`/pre_evaluation`
 
 ## Steps of analysis:
-As the analysis is done on history of edit of a single article. All the steps need name of the article to conduct the analysis.
+As the analysis is done on history of edit of a single article. All the steps of the analysis is done on a target wikipedia article.
 
 ### 1.Download the Article
 We use tokens from [WikiWho API](https://api.wikiwho.net/en/api/v1.0.0-beta/#/) to identify edited tokens, so first step requires to download all the contents of the target article. 
@@ -78,7 +78,7 @@ We find [Fowlkes–Mallows index](https://en.wikipedia.org/wiki/Fowlkes–Mallow
 
 #### Extrinsic Evaluation
 
-We evaluate our model extriniscally against a golden data set prepared by human annotators. We use entropy based measure of Homogenity,Completness and V-measure. Extrinsic evaluation is done in the [4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb](./notebooks/4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb) for the article [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird).
+We evaluate our model extriniscally against a golden data set prepared by human annotators. We use entropy based measure of Homogenity,Completness and V-measure. Extrinsic evaluation is done in the [4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb](./notebooks/4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb) for the article [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird). Evaluation is done with respect to three parameters of the model *Context_length*, *eps* and *min_sample*. 
 
 #### Extrinsic evaluation against Bykau. et. Al.
  

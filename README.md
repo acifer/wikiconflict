@@ -76,14 +76,16 @@ To run intrinsic evaluation for all 16 articles we use the script in [3_dbscan_i
 #### Compare with [Bykau. et. Al.](https://velgias.github.io/docs/BykauKSV15.pdf)
 
 First we reimplement paper from [Bykau. et. Al.](https://velgias.github.io/docs/BykauKSV15.pdf) Analysis of optimisation and clustering as suggested in [Bykau. et. Al.](https://velgias.github.io/docs/BykauKSV15.pdf) is done in  [5_1_reproduce_fine_grained](./notebooks/5_1_reproduce_fine_grained.ipynb). We run this reimplemented algorithm on all the change objects saved in `/change_object` directory and save the change object groups created by [Bykau. et. Al.](https://velgias.github.io/docs/BykauKSV15.pdf) in `/bykau_change_object`.
+
 ####  Agreement of our cluster with [Bykau. et. Al.](https://velgias.github.io/docs/BykauKSV15.pdf)
 
 We find [Fowlkes–Mallows index](https://en.wikipedia.org/wiki/Fowlkes–Mallows_index) of cluster created by our model and [Bykau. et. Al.](https://velgias.github.io/docs/BykauKSV15.pdf) using [5_3_fowlkes_intercluster](./notebooks/5_3_fowlkes_intercluster.ipynb).
 
 
 #### Extrinsic Evaluation
+Extrinsic evaluation is done using [V-Measure Analysis](http://www1.cs.columbia.edu/~amaxwell/pubs/v_measure-emnlp07.pdf). Which is an entropy based measure consisting of Homogenity,Completness and V-measure.
 
-We evaluate our model extriniscally against a golden data set prepared by human annotators. We use entropy based measure of Homogenity,Completness and V-measure. Extrinsic evaluation is done in the [4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb](./notebooks/4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb) for the article [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird). Evaluation is done with respect to three parameters of the model *Context_length*, *eps* and *min_sample*. 
+We evaluate our model extriniscally against a golden data set prepared by human annotators. Extrinsic evaluation is done in the [4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb](./notebooks/4_2_clustering-dbscan-extrinsic-evaluation-v-measure.ipynb) for the annotations of the article [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird). Evaluation is done with respect to three parameters of the model *Context_length*, *eps* and *min_sample*. 
 
 #### Extrinsic evaluation against [Bykau. et. Al.](https://velgias.github.io/docs/BykauKSV15.pdf)
  

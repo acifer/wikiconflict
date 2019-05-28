@@ -15,19 +15,15 @@ In order to achieve our research goal, we break it into following steps.
 
 All the analysis steps are released as IPython notebook.
 
-Following steps needed to be performed for processing of the data.
-
------
------
 
 
 ## Preparing the code.
-First clone or download this repository in a folder.
+### 1. Clone this repository in a folder in your machine.
 
-###  Download the Pre-Trained word vectors
+### 2. Download the Pre-Trained word vectors
 After cloning this repository, get the word vectors from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). Download [English Word Vector](https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec) *note: word vector is a huge file*. Create a directory `/wordvectors` in the root directory where the code is cloned. Store the word vector in this directory to be used in next steps.
 
-###  Create required directory for saving intermediate and final outcome of analysis.
+### 3. Create required directory for saving intermediate and final outcome of analysis.
 
 Inside wikiconflict directory, create the directory `/data` for storing all the results of analysis.
 Inside `/data`, create various subdirectories. Each of these subdirectories will store data at various stages of processing. 

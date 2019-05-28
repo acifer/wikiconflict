@@ -23,7 +23,7 @@ First clone or download this repository in a folder.
 Follow the following steps to re-run the analysis:
 
 ### 1. Download the Pre-Trained word vectors
-After cloning this repository, get the word vectors from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). Download [English Word Vector](https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec) *note: word vector is a huge file*. Create a directory /wordvectors in the root directory where the code is cloned. Store the word vector in this directory to be used in next steps.
+After cloning this repository, get the word vectors from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). Download [English Word Vector](https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.vec) *note: word vector is a huge file*. Create a directory `/wordvectors` in the root directory where the code is cloned. Store the word vector in this directory to be used in next steps.
 
 ### 2. Create required directory for saving intermediate and final outcome of analysis.
 
@@ -47,12 +47,12 @@ Tokenised content of the article can be downloaded using the [notebook](./notebo
 
 From the edited tokens downloaded in the `data/content` directory, we create change vector using the notebook [2_create_change_object-v2.ipynb](./notebooks/2_create_change_object-v2.ipynb). This notebook saves the identified change object in the directory `/data/change` objects
 
-### Create Change Vector
+### 3. Create Change Vector
 
 Next step is to transform Change Objects stored in `/data/change` objects into 600 dimensional Change Vector using pre trained word vectors downloaded from [fast text](https://github.com/facebookresearch/fastText/blob/master/docs/pretrained-vectors.md). 
 The notebook [3_create_change_vector-v3.ipynb](./notebooks/[3_create_change_vector-v3.ipynb]) creates different change vectors corresponding to different values of parameter, *context_length*. All of these change vectors are saved in /`data/change_vector` directory. Change vector is created using neighbouring tokens of change vectors and *context_length* equals to number of tokens in left and right used to create change vectors. Corresponding to different values of *context_length* we get different Change Vectors for same Change Object.
 
-### Cluster and Evaluate
+### 4. Cluster and Evaluate
 Change Vectors saved in `/data/change_vector` corresponnding to different values of *context_length* is used to create DBSCAN cluster. These clusters are first evaluated using both intrinsic and extrinsic mechanism. We compare our cluster to one created by re-implementation of Bykau. et. al. DBSCAN has two parameters eps and min_samples which when combined with context_length gives us three paramters of our model against which we evaluate our model.
 
  We use 16 articles in [small article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article.csv) and [big article list](https://github.com/acifer/wikiconflict/blob/master/conflicted_article-big.csv) for intrinsic evaluation and for comparison with Bykau. et. al.
@@ -64,12 +64,12 @@ Being a density based clustering algorithm DBSCAN identifies clusters of unequal
 
 For further investigating Change Object groups intrinsicially, we propose various measure based on the assumption that cluster of vector created by averaging word tokens from immediately before and after the Change Object should be able to have similar word tokens and come from similar relative position in the article.  In order to quantify different kind of words in Cluster, we define token entropy for the edited token in gap of change object. Similarly to quantify the relative position of Change Objects in a cluster we define the relative position entropy. All of the intrinsic evaluation analysis is done in the notebook [4_1_clustering-dbscan-intrinsic-evaluation-all.ipynb](./notebooks/4_1_clustering-dbscan-intrinsic-evaluation-all.ipynb). 
 
-To run intrinsic evaluation for all 16 articles we use the script in [3_dbscan_intrinsic.py](./scripts/3_dbscan_intrinsic.py). Results of intrinsic evaluation is saved in `/pre_evaluation` directory.
+To run intrinsic evaluation for all 16 articles we use the script in [3_dbscan_intrinsic.py](./scripts/3_dbscan_intrinsic.py). Results of intrinsic evaluation is saved in `/pre_evaluation` directory. We create visualisation of these results using [notebook](./notebooks/6_2_Plots (Response Variables).ipynb).
 
 
 #### Compare with Bykau. et. Al.
 
-First we reimplement paper from Bykau. et. al. Analysis of optimisation and clustering is done in  [5_1_reproduce_fine_grained](./notebooks/5_1_reproduce_fine_grained.ipynb). We run this reimplemented algorithm on all the change objects saved in `/change_object` directory and save the change object groups created by Bykau. et. Al. in /bykau_change_object.
+First we reimplement paper from Bykau. et. al. Analysis of optimisation and clustering as suggested in [paper]() is done in  [5_1_reproduce_fine_grained](./notebooks/5_1_reproduce_fine_grained.ipynb). We run this reimplemented algorithm on all the change objects saved in `/change_object` directory and save the change object groups created by Bykau. et. Al. in `/bykau_change_object`.
 ####  Agreement of our cluster with Bykau. et. Al.
 Using ,
 

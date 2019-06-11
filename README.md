@@ -13,7 +13,7 @@ In order to achieve our research goal, we break it into following steps.
 4. We evaluate groups of fine grained Change Objects.
 5. We compare our algorithm of identifying  group of Change Objects with algorithm proposed by [bykau et al].
 
-All the analysis steps are released as IPython notebook.
+All the analysis steps are released as IPython notebook. Further we also release example of cluster groups created on [John Logie Baird](https://en.wikipedia.org/wiki/John_Logie_Baird) in the [example notebook](https://github.com/acifer/wikiconflict/blob/master/notebooks/4_2_clustering-example.ipynb)
 
 
 

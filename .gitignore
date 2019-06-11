@@ -1,4 +1,7 @@
 __pycache__/
 .ipynb_checkpoints/
 .DS_Store
-data/
+data/bykau_change_object/
+data/change objects/
+data/change_vector/
+data/content/

@@ -78,8 +78,8 @@ def save_article(article_name, baseurl="https://api.wikiwho.net/en/api/v1.0.0-be
 # In[8]:
 
 if __name__ == "__main__":
-    #article_series=pd.read_csv("conflicted_article.csv")["articles"]
-    article_series = ["Hummus", "Andy Murray", "Istanbul"]
+    article_series=pd.read_csv("conflicted_article.csv")["articles"]
+#     article_series = ["Hummus", "Andy Murray", "Istanbul"]
     print("starting download for the conflicted articles")
     for article in article_series:
         print("Downlaoding the article", article)    

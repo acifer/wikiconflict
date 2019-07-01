@@ -2,6 +2,8 @@
 
 This repository is part of the analysis done for my master thesis.
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/acifer/wikiconflict/master?filepath=notebooks%2F4_2_clustering-example.ipynb)
+
 ## Research Goal
  Thesis aims to identify the group of edited tokens in the revision history of an article which are fine grained in their respective revisions.
  
